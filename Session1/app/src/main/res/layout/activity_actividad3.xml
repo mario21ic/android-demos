@@ -22,12 +22,7 @@
         android:text="@string/opcion5"
         android:onClick="mispinner"
         />
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Mi TabHost"
-        android:onClick="mitabhost"
-        />
+    
     <Button
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -44,7 +39,9 @@
     <Button android:id="@+id/button02"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="@string/opcion2"/>
+        android:text="@string/opcion2"
+        android:onClick="mitabhost" />
+
     <Button android:id="@+id/button04"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
