@@ -1,11 +1,19 @@
 package com.mario21ic.session5;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +29,7 @@ public class MainActivity extends FragmentActivity
 
     GoogleMap mapa;
     LatLng ubicacion;
+    int checkseguir=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +53,23 @@ public class MainActivity extends FragmentActivity
     public void moveCamera(View view) {
         mapa.moveCamera(CameraUpdateFactory.newLatLng(ubicacion));
     }
+
+    // Va a capturar el centro de la camara
     public void addMarker(View view) {
-        Log.i("mipunto", mapa.getCameraPosition().toString());
+        Log.i("addMarker - mipunto: ", mapa.getCameraPosition().target.toString());
+        Log.i("addMarker - latitude: ", String.valueOf(mapa.getCameraPosition().target.latitude));
+        Log.i("addMarker - longitude: ", String.valueOf(mapa.getCameraPosition().target.longitude));
+
         mapa.addMarker(new MarkerOptions().position(
                 mapa.getCameraPosition().target));
     }
-    @Override public void onMapClick(LatLng puntoPulsado) {
-        Log.i("mipunto: ", puntoPulsado.toString());
-        Log.i("latitude: ", String.valueOf(puntoPulsado.latitude));
-        Log.i("longitude: ", String.valueOf(puntoPulsado.longitude));
+
+    @Override
+    public void onMapClick(LatLng puntoPulsado) {
+        Log.i("onMapClick - mipunto: ", puntoPulsado.toString());
+        Log.i("onMapClick - latitude: ", String.valueOf(puntoPulsado.latitude));
+        Log.i("onMapClick - longitude: ", String.valueOf(puntoPulsado.longitude));
+
         mapa.addMarker(new MarkerOptions().position(puntoPulsado)
                 .icon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
