@@ -1,0 +1,2 @@
+rootProject.name='Parte1Intermedio'
+include ':app'
