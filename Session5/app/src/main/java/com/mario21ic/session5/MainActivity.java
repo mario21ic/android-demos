@@ -31,6 +31,20 @@ public class MainActivity extends FragmentActivity
     LatLng ubicacion;
     int checkseguir=0;
 
+    public void Seguir(View view) {
+        Button btnseguir=findViewById(R.id.btnseguir);
+        if (checkseguir==0) {
+            checkseguir = 1;
+            btnseguir.setText("OFF seguir");
+            Toast.makeText(this, "Se Activo el seguimiento", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            checkseguir = 0;
+            btnseguir.setText("ON seguir");
+            Toast.makeText(this, "Se desactivo el seguimiento", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +53,41 @@ public class MainActivity extends FragmentActivity
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.mapa);
         mapFragment.getMapAsync(this);
+
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(this, "GPS available", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "GPS not available", Toast.LENGTH_LONG).show();
+        }
+
+        LocationListener locationListener = new LocationListener()
+        {
+            public void onLocationChanged(Location location)
+            {
+                Toast.makeText(getApplicationContext(), "Se cambio de posicion", Toast.LENGTH_SHORT).show();
+                Double latitude=location.getLatitude();
+                Double longitude=location.getLatitude();
+                Toast.makeText(getApplicationContext(), "latitud: "+ latitude.toString()+ " longitud: "+ longitude.toString(), Toast.LENGTH_SHORT).show();
+                if(checkseguir==1)
+                    if (mapa.getMyLocation() != null)
+                        mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                                new LatLng(mapa.getMyLocation().getLatitude(),
+                                        mapa.getMyLocation().getLongitude()), 15));
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras)
+            {
+            }
+            public void onProviderEnabled(String provider)
+            {
+            }
+            public void onProviderDisabled(String provider)
+            {
+            }
+        };
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 
     @Override
@@ -56,6 +105,7 @@ public class MainActivity extends FragmentActivity
             mapa.getUiSettings().setZoomControlsEnabled(false);
             mapa.getUiSettings().setCompassEnabled(true);
         } else {
+            // TODO agregar la solititud de permiso de gps
             Button btnMiPos=(Button) findViewById(R.id.btnmiubi);
             btnMiPos.setEnabled(false);
         }
@@ -66,6 +116,7 @@ public class MainActivity extends FragmentActivity
             mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(mapa.getMyLocation().getLatitude(),
                             mapa.getMyLocation().getLongitude()), 15));
+//        Animate camera es para localizar de forma animada, el param es el nivel del zoom.
     }
 
     public void moveCamera(View view) {
