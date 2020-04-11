@@ -20,7 +20,11 @@ public class EjemplosFragment extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    public void ejempo2(View view) { startActivity(new Intent(this, ListaCorreo.class));
+    public void ejempo2(View view) {
+        startActivity(new Intent(this, ListaCorreo.class));
+    }
 
+    public void ejempo3(View view) {
+        startActivity(new Intent(this, MainFragmentCorreo.class));
     }
 }
