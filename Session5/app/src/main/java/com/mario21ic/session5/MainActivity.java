@@ -48,6 +48,24 @@ public class MainActivity extends FragmentActivity
         mapa.addMarker(new MarkerOptions().position(ubicacion).title("Marcador Tacna"));
         mapa.moveCamera(CameraUpdateFactory.newLatLng(ubicacion));
         mapa.setOnMapClickListener(this);
+
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+            mapa.setMyLocationEnabled(true);
+            mapa.getUiSettings().setZoomControlsEnabled(false);
+            mapa.getUiSettings().setCompassEnabled(true);
+        } else {
+            Button btnMiPos=(Button) findViewById(R.id.btnmiubi);
+            btnMiPos.setEnabled(false);
+        }
+    }
+
+    public void ubicacion(View view) {
+        if (mapa.getMyLocation() != null)
+            mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(mapa.getMyLocation().getLatitude(),
+                            mapa.getMyLocation().getLongitude()), 15));
     }
 
     public void moveCamera(View view) {

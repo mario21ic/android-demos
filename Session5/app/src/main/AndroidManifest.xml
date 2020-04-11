@@ -3,7 +3,7 @@
     package="com.mario21ic.session5">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+<!--    Especificar que la app es para mobile con gps -->
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
