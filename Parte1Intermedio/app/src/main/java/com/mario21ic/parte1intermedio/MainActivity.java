@@ -16,12 +16,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends FragmentActivity
         implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     GoogleMap mapa;
     LatLng ubicacion;
     Marker Mymarker;
+
+    List<Marker> markerList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +79,19 @@ public class MainActivity extends FragmentActivity
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.markermap))
                 .title("Marker onMapClick")
                 .snippet("Este marker es producto del evento de pulsar en el mapa"));
+
+        markerList.add(Mymarker);
     }
 
-//    Eliminar el ultimo marcado
     public void eliminar(View view) {
-        if(Mymarker!=null)
-            Mymarker.remove();
+//        if(Mymarker!=null) {
+//            Mymarker.remove();
+
+        if (markerList.size() != 0) {
+            if(markerList.get(markerList.size()-1)!=null) {
+                markerList.get(markerList.size()-1).remove();
+                markerList.remove(markerList.size()-1);
+            }
+        }
     }
 }

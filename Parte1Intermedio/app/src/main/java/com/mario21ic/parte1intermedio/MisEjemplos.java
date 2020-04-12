@@ -21,4 +21,8 @@ public class MisEjemplos extends AppCompatActivity {
     public void mipolyline(View view) {
         startActivity(new Intent(this, MiPolyLine.class));
     }
+
+    public void mipolygon(View view) {
+        startActivity(new Intent(this, MiPolygon.class));
+    }
 }
