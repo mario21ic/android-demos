@@ -35,4 +35,11 @@
         android:onClick="mapacalor"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cluster"
+        android:onClick="mapacluster"
+        />
+
 </LinearLayout>

@@ -29,4 +29,8 @@ public class MisEjemplos extends AppCompatActivity {
     public void mapacalor(View view) {
         startActivity(new Intent(this, MapaCalor.class));
     }
+
+    public void mapacluster(View view) {
+        startActivity(new Intent(this, MiClusterMap.class));
+    }
 }
