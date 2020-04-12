@@ -12,7 +12,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
 
 public class MiClusterMap extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
+
     GoogleMap mapa; ClusterManager<MiClusterItem> miClusterItemClusterManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +23,14 @@ public class MiClusterMap extends AppCompatActivity implements OnMapReadyCallbac
                 getSupportFragmentManager().findFragmentById(R.id.mapa);
         mapFragment.getMapAsync(this);
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mapa = googleMap;
         mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-18.013766, -70.255331), 15));
         mapa.setOnMapClickListener(this);
     }
+
     @Override
     public void onMapClick(LatLng latLng) {
         if (miClusterItemClusterManager == null)

@@ -33,4 +33,8 @@ public class MisEjemplos extends AppCompatActivity {
     public void mapacluster(View view) {
         startActivity(new Intent(this, MiClusterMap.class));
     }
+
+    public void distancialineal(View view) {
+        startActivity(new Intent(this, DistanciaDosPuntos.class));
+    }
 }
