@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -45,11 +46,21 @@ public class MainActivity extends FragmentActivity
         mapa.addMarker(new MarkerOptions().position(ubicacion).title("Marcador Tacna"));
         mapa.moveCamera(CameraUpdateFactory.newLatLng(ubicacion));
         mapa.setOnMapClickListener(this);
-
         mapa.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
             @Override
             public void onInfoWindowLongClick(Marker marker) {
                 marker.remove();
+            }
+        });
+
+//      Para cuando se aleje la camara desaparezcan los marcardores
+        mapa.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                CameraPosition position = mapa.getCameraPosition();
+                float zoom = position.zoom;
+                for(Marker marker:markerList)
+                    marker.setVisible(zoom>=12); // El zoom es desde 1 a 20
             }
         });
     }
